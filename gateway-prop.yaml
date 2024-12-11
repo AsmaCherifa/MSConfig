@@ -13,11 +13,11 @@ spring :
               predicates :
                   - Path=/utilisateur/**
               filters :
-                  - RewritePath= /utilisateur/(?<path>.*) . /$\{path}
+                  - RewritePath= /utilisateur/(?<path>.*) , /$\{path}
            - id : microservice-projet
 #load balancer = lb
              uri: lb://microservice-projet
               predicates :
                   - Path=/projet/**
               filters :
-                  - RewritePath= /projet/(?<path>.*) . /$\{path}
+                  - RewritePath= /projet/(?<path>.*) , /$\{path}
