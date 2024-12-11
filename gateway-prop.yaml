@@ -1,23 +1,22 @@
-eureka
-  client :
-      serviceUrl : 
-        defaultZone : http://localhost:9093/eureka
-#definir les routes
-spring :
-  cloud :
-    gateway :
-        routes  : 
-           - id : microservice-user
-#load balancer = lb
-             uri: lb://microservice-user
-              predicates :
-                  - Path=/utilisateur/**
-              filters :
-                  - RewritePath= /utilisateur/(?<path>.*) , /$\{path}
-           - id : microservice-projet
-#load balancer = lb
-             uri: lb://microservice-projet
-              predicates :
-                  - Path=/projet/**
-              filters :
-                  - RewritePath= /projet/(?<path>.*) , /$\{path}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9093/eureka
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: microservice-user
+          uri: lb://microservice-user # Load balancer URI pour microservice-user
+          predicates:
+            - Path=/utilisateur/**
+          filters:
+            - RewritePath=/utilisateur/(?<path>.*), /${path}
+
+        - id: microservice-projet
+          uri: lb://microservice-projet # Load balancer URI pour microservice-projet
+          predicates:
+            - Path=/projet/**
+          filters:
+            - RewritePath=/projet/(?<path>.*), /${path}
